@@ -14,7 +14,7 @@
 
 다양한 환경에서 실습을 진행할 경우 예상하지 못한 문제가 발생하는 경우가 많아 가급적 동일한 환경을 사용합니다. AWS를 사용하며 비용은 8시간 기준 500원 정도가 발생합니다.
 
-- [Workshop 개발 환경 셋팅하기](https://github.com/subicura/workshop-init)
+- [Workshop 개발 환경 셋팅하기](https://github.com/minerva22c/workshop-init)
 
 ## 가이드
 
