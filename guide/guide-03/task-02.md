@@ -148,6 +148,7 @@ spec:
       value: "localhost"
   - name: db
     image: redis
+# pod 내부의 여러 container들의 ip는 동일하고, port만 달라진다. 
 ```
 
 
@@ -160,7 +161,7 @@ kubectl exec -it whoami-redis
 kubectl exec -it whoami-redis -c db sh
 kubectl exec -it whoami-redis -c app sh
   apk add curl busybox-extras # install telnet
-  curl localhost:4567
+  curl localhost:4567  # web 접속횟수가 늘어나면서 표기됨(redis)
   telnet localhost 6379
     dbsize
     KEYS *
@@ -181,6 +182,18 @@ guide-03/task-02/exam-1.yml
 - Labels: app => mongo
 - Container Name: mongodb
 - Image: mongo:4
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mongodb
+  labels:
+    type: mongo
+spec:
+  containers:
+  - name: mongodb
+    image: mongo:4
+```
 
 ## Exam 2. 다음 조건을 만족하는 pod을 만들어 보세요.
 
@@ -192,6 +205,23 @@ guide-03/task-02/exam-2.yml
 - Image: mysql:5.6
 - Env
   - MYSQL_ROOT_PASSWORD: 123456
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mysql
+  labels:
+    type: mysql
+spec:
+  containers:
+  - name: mysql
+    image: mysql:5.6
+    env:
+      - name: MYSQL_ROOT_PASSWORD
+        value: "123456"
+# k exec -it mysql sh
+# mysql -uroot -p123456
+```
 
 POD에 접속해서 mysql -uroot -p123456 으로 테스트
 
