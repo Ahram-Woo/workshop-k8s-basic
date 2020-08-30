@@ -4,20 +4,22 @@
 
 ```sh
 kubectl run whoami --image subicura/whoami:1 # deprecated soon..
+  "pod/whoami created" --> 'n/w가 연결되지 않은 container가 실행되었다.'
 kubectl get po
 kubectl get pod
-kubectl get pods
-kubectl get pods -o wide
+kubectl get pods 
+kubectl get pods -o wide  # --> 어느 node에 pod가 떠 있는지 확인 가능.
 kubectl get pods -o yaml
 kubectl get pods -o json
-kubectl logs whoami-<xxxx>
+kubectl logs whoami-<xxxx>  # --> api 서버로 모아주기 때문에 다른 서버의 log도 확인 가능하다.
 kubectl logs -f whoami-<xxxx>
-kubectl exec -it whoami-<xxxx> sh
-kubectl describe pods whoami-<xxxx>
+kubectl exec -it whoami-<xxxx> sh   # proxy형태로 container에 접속
+kubectl describe pods whoami-<xxxx> # 'Events' 내용(생성이력)이 중요함( ex.실행을 했는데, pod이 뜨지 않는 경우 해당 이력을 확인 )
 kubectl delete pods whoami-<xxxx>
 kubectl get pods
 kubectl get all
-kubectl delete deployment/whoami
+kubectl delete deployment/whoami  
+  # 실제 'kubectl run whoami...'를 실행해 보면 pod만 생성되고 deployment가 생성되지 않음. 버전차이??
 ```
 
 ## YAML 파일 예제
@@ -42,6 +44,9 @@ spec:
   containers:
   - name: app
     image: subicura/whoami:1
+ 
+ # ~/project/guide-03/task-02$ kubectl apply -f whoami-pod.yml
+ # pod/whoami created
 ```
 
 ### Pod Ready
