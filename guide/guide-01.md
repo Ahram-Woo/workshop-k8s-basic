@@ -190,4 +190,9 @@ docker run -d -p 3000:8000 -e PORT=8000 -e GUESTBOOK_API_ADDR=backend:8000 --net
 docker stop xxx
 docker rm xxx
 docker system prune -a
+#WARNING! This will remove:
+#  - all stopped containers
+#  - all networks not used by at least one container
+#  - all images without at least one container associated to them
+#  - all build cache
 ```
