@@ -31,6 +31,7 @@ docker run --rm -it ubuntu:18.04 /bin/sh
 
 ```
 docker run -d -p 4567:4567 subicura/docker-workshop-app:1
+# 외부에 port(4567)를 노출하고, container에 연결이 됨
 ```
 
 http://xxxx:4567 접속
@@ -42,20 +43,25 @@ docker run -d -p 3306:3306 \
   -e MYSQL_ALLOW_EMPTY_PASSWORD=true \
   --name mysql \
   mysql:5.7
+# 3306 port를 열고 있음
 ```
 
 Database 생성
 
 ```
+# mysql 접속
 docker exec -it mysql mysql
+# db 생성
 create database wp CHARACTER SET utf8;
+# 계정생성
 grant all privileges on wp.* to wp@'%' identified by 'wp';
+#
 flush privileges;
 quit
 ```
 
 **Wordpress 생성**
-
+( codeserver와 port충돌이 나기때문에, codeserver는 종료 후 수행 : "sudo systemctl stop codeserver" )
 ```
 docker run -d -p 8000:80 \
   -e WORDPRESS_DB_HOST=172.17.0.1 \
@@ -76,7 +82,8 @@ docker ps -a
 **컨테이너 로그**
 
 ```
-docker logs xxx
+docker logs xxx 
+# xxx : container id
 ```
 
 **컨테이너 종료**
@@ -101,6 +108,7 @@ docker images
 
 ```
 docker network create app-network
+# 가상의 n/w 이름(app-network) 을 생성.
 ```
 
 **네트워크에 연결된 컨테이너 생성**
@@ -111,6 +119,7 @@ docker run -d \
   --name mysql \
   --network=app-network \
   mysql:5.7
+ # 가상의 n/w 안에서는 port설정을 하지 않아도 접속이 가능함
 ```
 
 ```
