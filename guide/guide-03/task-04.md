@@ -38,10 +38,10 @@ spec:
 kubectl set image deploy/whoami-deploy whoami=subicura/whoami:2
 kubectl apply -f whoami-deploy.yml
 kubectl get rs -w
-kubectl describe deploy/whoami-deploy
+kubectl describe deploy/whoami-deploy  # deployment-controller 가 replica set에서 명령을 요청한 내용을 확인할 수 있다.
 kubectl rollout history -f whoami-deploy.yml
 kubectl set image deploy/whoami-deploy whoami=subicura/whoami:1 --record=true
-kubectl rollout history -f whoami-deploy.yml
+kubectl rollout history -f whoami-deploy.yml  # 3번을 변경했더라도, 다른 이미지가 2개뿐이면 최대 2개만 조회가 된다.
 kubectl rollout history -f whoami-deploy.yml --revision=2
 kubectl rollout status deploy/whoami-deploy
 kubectl rollout undo deploy/whoami-deploy
