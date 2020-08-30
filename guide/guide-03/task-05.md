@@ -45,6 +45,9 @@ spec:
   selector:
     type: db
     service: redis
+
+# "---" 를 넣으면 한 파일에 두개의 설정정보를 반영할 수 있다.
+# apps/v1beta2 -> apps/v1
 ```
 
 guide-03/task-05/whoami-deploy.yml
