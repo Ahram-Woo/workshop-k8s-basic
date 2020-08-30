@@ -1,4 +1,5 @@
 # kubernetes 기본 가이드
+( 출처 : https://github.com/subicura/workshop-k8s-basic )
 
 ## 소개
 
@@ -30,12 +31,3 @@
   - [Task 6. load balancer](./guide/guide-03/task-06.md)
   - [Task 7. ingress](./guide/guide-03/task-07.md)
   - [Bonus. Horizontal Pod Autoscaler](./guide/guide-03/bonus.md)
-
-## 문의 & 궁금한 사항
-
-페이스북 메신저 또는 트위터로 연락주세요.
-
-- http://slack.opencontainer.co.kr
-- https://www.facebook.com/subicura
-- https://twitter.com/subicura
-- subicura(at)subicura(dot)com
