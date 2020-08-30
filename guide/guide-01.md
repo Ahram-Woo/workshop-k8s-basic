@@ -176,3 +176,14 @@ docker rm xxx
 docker system prune -a
 ```
 
+## Exam 1. 방명록 만들기(실습내용)
+```
+# container id : mongodb, image : "mongo:4"
+docker run -d --name=mongodb --network=app-network mongo:4
+# "app-network" n/w 안의 container들은 "mongodb"이름으로 ip를 찾을 수 있게 됨.
+
+docker run -d --name=backend --network=app-network -e PORT=8000 -e GUESTBOOK_DB_ADDR=mongodb:27017 subicura/guestbook-backend:latest
+
+
+```
+
