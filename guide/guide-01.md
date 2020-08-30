@@ -168,13 +168,6 @@ docker run -d -p 8000:80 \
 기본포트
 - 27017
 
-## 정리
-
-```
-docker stop xxx
-docker rm xxx
-docker system prune -a
-```
 
 ## Exam 1. 방명록 만들기(실습내용)
 ```
@@ -183,7 +176,18 @@ docker run -d --name=mongodb --network=app-network mongo:4
 # "app-network" n/w 안의 container들은 "mongodb"이름으로 ip를 찾을 수 있게 됨.
 
 docker run -d --name=backend --network=app-network -e PORT=8000 -e GUESTBOOK_DB_ADDR=mongodb:27017 subicura/guestbook-backend:latest
+docker logs backend
 
+docker run -d -p 3000:8000 -e PORT=8000 -e GUESTBOOK_API_ADDR=backend:8000 --network=app-network subicura/guestbook-frontend:latest
+# front라 name은 의미가 없음. 3000번으로 접속하면 내부의 8000번 port로 연결.
 
+# 접속 테스트 : http://13.125.211.167:3000/
 ```
 
+## 정리
+
+```
+docker stop xxx
+docker rm xxx
+docker system prune -a
+```
