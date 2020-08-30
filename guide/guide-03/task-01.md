@@ -1,5 +1,5 @@
 # kubectl
-
+( k8s의 api server와 통신하기위한 client 도구 )
 자주 사용하는 kubectl 명령어를 알아봅니다.
 
 > **TIP** `alias k='kubectl'`을 입력하면 편하게 명령어를 입력할 수 있습니다.
@@ -7,17 +7,17 @@
 ## 기본 명령어
 
 - apply
-  - Apply a configuration to a resource by filename or stdin
+  - Apply a configuration to a resource by filename or stdin ( 내가 원하는 desired status를 적용하겠다 )
 - get 
-  - Display one or many resources
+  - Display one or many resources ( 현재 리소스의 전체적인 목록 )
 - describe
-  - Show details of a specific resource or group of resources
+  - Show details of a specific resource or group of resources ( 상세내용 )
 - delete
   - Delete resources by filenames, stdin, resources and names, or by resources and label selector
 - logs
   - Print the logs for a container in a pod
 - exec
-  - Execute a command in a container
+  - Execute a command in a container ( docker의 exec와 동일 )
 
 
 > 전체 명령어는 `kubectl`을 입력합니다.
@@ -25,12 +25,14 @@
 ## 명령 vs 선언
 
 ```
-kubectl scale --replicas=3 rs/whoami
+# 명령
+kubectl scale --replicas=3 rs/whoami    # replica set를 3개로 늘려라고 명령하는 것 
 ```
 
 vs
 
 ```yml
+# 선언
 apiVersion: apps/v1beta2
 kind: ReplicaSet
 metadata:
@@ -62,9 +64,10 @@ spec:
 특정 오브젝트를 조회하는 방법이 여러개 있습니다.
 
 **get**
+( object를 list로 조회 )
 ```
 # pod, replicaset, deployment, service 조회
-kubectl get all
+kubectl get all ( 주로 사용하는 resource들에 대해 조회 )
 
 # node 조회
 kubectl get no
