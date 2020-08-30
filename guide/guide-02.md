@@ -20,7 +20,7 @@
 
 ### 도커 컴포즈 실습
 
-`guide-02`라는 폴더를 만듭니다.
+`guide-02`라는 폴더를 만듭니다. ( Visual Studio Code 에서 PROJECT 밑에 폴더 생성 )
 
 **간단한 웹 애플리케이션 생성**
 
@@ -36,13 +36,15 @@ services:
 ```
 
 ```
+## vscode terminal : ~/project/guide-02/docker-workshop-app 에서 실행
 docker-compose up -d
 ```
 
-http://xxxx:4567 접속
+http://xxxx:4567 접속  ( container id 가 확인 됨 )
+'기존에는 명령적으로 실행("docker run -d -p 4567:4567 subicura/docker-workshop-app:1") 하였다면, 이제는 선언적으로 실행하였다. '
 
 **wordpress 생성**
-
+(wordpress와 mysql을 합쳐서 작성)
 guide-02/wordpress/docker-compose.yml
 
 ```yml
@@ -65,6 +67,10 @@ services:
       MYSQL_DATABASE: wp
       MYSQL_USER: wp
       MYSQL_PASSWORD: wp
+ 
+ # mysql에 별도 접속을 하지 않아도 자동으로 db, user를 생성해 줌
+ # wordpress는 외부접속이 필요하기 때문에 port설정을 해줌.
+ # mysql보다 wordpress가 먼저 기동되는 경우 mysql이 없어서 오류가 날수 있기때문에 재시작옵션(restart)을 설정해 둠.
 ```
 
 ```
@@ -118,6 +124,34 @@ guide-02/guestbook/docker-compose.yml
 
 기본포트
 - 27017
+
+
+## Exam 1. 방명록 만들기(실습)
+
+guide-02/guestbook/docker-compose.yml
+
+```
+version: '3'
+services:
+  frontend:
+    image: subicura/guestbook-frontend:latest
+    environment:
+      PORT: 8000
+      GUESTBOOK_API_ADDR: backend:8000
+    ports:
+      - "3000:8000"
+    restart: always
+  backend:
+    image: subicura/guestbook-backend:latest
+    environment:
+      PORT: 8000
+      GUESTBOOK_DB_ADDR: mongodb:27017
+    ports:
+      - "8000:80"
+    restart: always
+  mongodb:
+    image: mongo:4
+```
 
 ## 정리
 
